@@ -1,5 +1,12 @@
 .filter {
+  width: 1140px;
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   gap: 10px;
+}
+
+.filter__box {
+  height: 34px;
 }

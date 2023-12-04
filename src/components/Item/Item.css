@@ -28,4 +28,11 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+}
+
+.item__back-link {
+  text-decoration: none;
+  color: rgb(56, 164, 58);
 }

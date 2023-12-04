@@ -1,7 +1,7 @@
 import './Card.css';
 import {Link} from 'react-router-dom';
 
-function Card({item, isMatched, matchedItems, onItemClick, onSearchMatch}) {
+function Card({item, isMatched, matchedItems, onItemClick, onSearchMatch, itemToMatch}) {
 
 
   function handleFindMatched(matchedItems, item) {

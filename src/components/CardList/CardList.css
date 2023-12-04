@@ -1,5 +1,9 @@
 .cardlist {
+  width: 1140px;
   display: flex;
   flex-direction: column;
   list-style-type: none;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
 }

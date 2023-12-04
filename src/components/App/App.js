@@ -1,9 +1,10 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Item from '../Item/Item';
+import {dealersApi} from '../../utils/dealersApi';
 
 
 function App() {
@@ -96,6 +97,7 @@ function App() {
     }
   ]
 
+//  const [items, setItems] = useState([]);
   const [itemToMatch, setItemToMatch] = useState({});
 
   function onItemClick(item) {
@@ -110,6 +112,17 @@ function App() {
       return prosept.name
     } else return ''
   }
+/*
+  useEffect(() => {
+    dealersApi.getDealerProducts()
+      .then((data) => {
+        setItems(data);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`)
+      })
+  }, [])
+ */ 
 
   return (
     <div className='page'>
@@ -119,12 +132,13 @@ function App() {
         <Route path='/' 
           element={<Main
             items={items}
+            itemToMatch={itemToMatch}
             matchedItems={matchedItems}
             onItemClick={onItemClick}
             onSearchMatch={onSearchMatch}
           />}
         />
-        <Route path={`${itemToMatch.id}`} 
+        <Route path=':id' 
           element={<Item
             itemToMatch={itemToMatch}
             setItemToMatch={setItemToMatch}

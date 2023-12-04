@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './CardList.css';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Card from '../Card/Card';
 //import PaginationRounded from '../Pagination/Pagination';
 
-function CardList({items, matchedItems, onItemClick, onSearchMatch}) {
+function CardList({items, matchedItems, onItemClick, onSearchMatch, statusFilter, itemToMatch}) {
 
   const [page, setPage] = useState(1);
 
@@ -19,11 +19,11 @@ function CardList({items, matchedItems, onItemClick, onSearchMatch}) {
       return true;
     } else 
     return false;
-  }
+  }  
 
   return (
     <Stack spacing={2}>
-      <ul className='cardlist'>
+      {((statusFilter === 'all') || (statusFilter === '')) && <ul className='cardlist'>
         {items.slice(2*(page-1), 2*page).map((item) => (
           <Card 
             item={item}
@@ -32,9 +32,36 @@ function CardList({items, matchedItems, onItemClick, onSearchMatch}) {
             matchedItems={matchedItems}
             onItemClick={onItemClick}
             onSearchMatch={onSearchMatch}
+            itemToMatch={itemToMatch}
           />
         ))}
-      </ul>
+      </ul>}
+      {(statusFilter === 'yes') && <ul className='cardlist'>
+        {items.slice(2*(page-1), 2*page).map((item) => (
+          checkIsMatched(matchedItems, item) && <Card 
+            item={item}
+            key={item.id}
+            isMatched={checkIsMatched(matchedItems, item)}
+            matchedItems={matchedItems}
+            onItemClick={onItemClick}
+            onSearchMatch={onSearchMatch}
+            itemToMatch={itemToMatch}
+          />
+        ))}
+      </ul>}
+      {(statusFilter === 'no') && <ul className='cardlist'>
+        {items.slice(2*(page-1), 2*page).map((item) => (
+          !checkIsMatched(matchedItems, item) && <Card 
+            item={item}
+            key={item.id}
+            isMatched={checkIsMatched(matchedItems, item)}
+            matchedItems={matchedItems}
+            onItemClick={onItemClick}
+            onSearchMatch={onSearchMatch}
+            itemToMatch={itemToMatch}
+          />
+        ))}
+      </ul>}
         <Pagination count={Math.ceil(items.length/2)} shape="rounded" size="small" onChange={handlePageChange} />
     </Stack>
   );

@@ -5,25 +5,20 @@ import Stack from '@mui/material/Stack';
 
 import Card from '../Card/Card';
 
-function CardList({items, matchedItems, onItemClick, onSearchMatch, statusFilter, itemToMatch}) {
+function CardList({items, matchedItems, onItemClick, onSearchMatch, statusFilter, itemToMatch, checkIsMatched, onFilterChange, filteredItems}) {
 
   const [page, setPage] = useState(1);
+  const [pages] = useState(Math.round(items.length/2))
 
-  function handlePageChange(e, value) {
+  function handlePageChange(value) {
     setPage(value);
-  }  
+    onFilterChange(matchedItems, items);
+  }
 
-  function checkIsMatched(matchedItems, item) {
-    if (matchedItems.find((matchedItem) => matchedItem.dealerKey === item.id)) {
-      return true;
-    } else 
-    return false;
-  }  
-
-  return (
+    return (
     <Stack spacing={2}>
       {((statusFilter === 'all') || (statusFilter === '')) && <ul className='cardlist'>
-        {items.slice(2*(page-1), 2*page).map((item) => (
+        {filteredItems.slice(2*(page-1), 2*page).map((item) => (
           <Card 
             item={item}
             key={item.id}
@@ -36,7 +31,7 @@ function CardList({items, matchedItems, onItemClick, onSearchMatch, statusFilter
         ))}
       </ul>}
       {(statusFilter === 'yes') && <ul className='cardlist'>
-        {items.slice(2*(page-1), 2*page).map((item) => (
+        {filteredItems.slice(2*(page-1), 2*page).map((item) => (
           checkIsMatched(matchedItems, item) && <Card 
             item={item}
             key={item.id}
@@ -49,8 +44,8 @@ function CardList({items, matchedItems, onItemClick, onSearchMatch, statusFilter
         ))}
       </ul>}
       {(statusFilter === 'no') && <ul className='cardlist'>
-        {items.slice(2*(page-1), 2*page).map((item) => (
-          !checkIsMatched(matchedItems, item) && <Card 
+        {filteredItems.slice(2*(page-1), 2*page).map((item) => (
+          !checkIsMatched(matchedItems, item) &&  <Card 
             item={item}
             key={item.id}
             isMatched={checkIsMatched(matchedItems, item)}
@@ -61,7 +56,7 @@ function CardList({items, matchedItems, onItemClick, onSearchMatch, statusFilter
           />
         ))}
       </ul>}
-        <Pagination count={Math.ceil(items.length/2)} shape="rounded" size="small" onChange={handlePageChange} />
+        <Pagination count={pages} shape="rounded" size="small" onChange={handlePageChange} />
     </Stack>
   );
 }

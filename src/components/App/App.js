@@ -97,7 +97,7 @@ function App() {
     }
   ]
 
-//  const [items, setItems] = useState([]);
+ // const [items, setItems] = useState([]);
   const [itemToMatch, setItemToMatch] = useState({});
 
   function onItemClick(item) {
@@ -122,7 +122,7 @@ function App() {
         console.log(`Ошибка: ${err}`)
       })
   }, [])
- */ 
+  */
 
   return (
     <div className='page'>

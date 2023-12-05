@@ -12,7 +12,7 @@ function App() {
   const items = [
     {
       id: 1,
-      productKey: 1, 
+      productKey: 1,
       price: 100,
     //  url: norikov.notion.site,
       name: 'item1',
@@ -20,21 +20,21 @@ function App() {
     },
     {
       id: 2,
-      productKey: 1, 
+      productKey: 1,
       price: 100,
     //  url: norikov.notion.site,
     name: 'item1',
     date: '2010.1.24'
     },{
       id: 3,
-      productKey: 1, 
+      productKey: 1,
       price: 100,
     //  url: norikov.notion.site,
     name: 'item1',
     date: '2010.1.24'
     },{
       id: 4,
-      productKey: 1, 
+      productKey: 1,
       price: 100,
     //  url: norikov.notion.site,
     name: 'item1',
@@ -42,7 +42,7 @@ function App() {
     },
     {
       id: 5,
-      productKey: 1, 
+      productKey: 1,
       price: 100,
     //  url: norikov.notion.site,
     name: 'item1',
@@ -50,7 +50,7 @@ function App() {
     },
     {
       id: 6,
-      productKey: 1, 
+      productKey: 1,
       price: 100,
     //  url: norikov.notion.site,
     name: 'item1',
@@ -58,7 +58,7 @@ function App() {
     },
     {
       id: 7,
-      productKey: 1, 
+      productKey: 1,
       price: 100,
     //  url: norikov.notion.site,
     name: 'item1',
@@ -66,7 +66,7 @@ function App() {
     },
     {
       id: 8,
-      productKey: 1, 
+      productKey: 1,
       price: 100,
     //  url: norikov.notion.site,
     name: 'item1',
@@ -97,10 +97,18 @@ function App() {
     }
   ]
 
- // const [items, setItems] = useState([]);
   const [itemToMatch, setItemToMatch] = useState({});
 
+  useEffect(() => {
+    const storedItem = localStorage.getItem('itemToMatch');
+    if (storedItem) {
+      setItemToMatch(JSON.parse(storedItem));
+    }
+  }, []);
+
+
   function onItemClick(item) {
+    console.log(item)
     setItemToMatch(item);
     localStorage.setItem('itemToMatch', JSON.stringify(item));
   //  localStorage.clear();
@@ -126,10 +134,10 @@ function App() {
 
   return (
     <div className='page'>
-      <Header 
+      <Header
       />
       <Routes>
-        <Route path='/' 
+        <Route path='/'
           element={<Main
             items={items}
             itemToMatch={itemToMatch}
@@ -138,7 +146,8 @@ function App() {
             onSearchMatch={onSearchMatch}
           />}
         />
-        <Route path=':id' 
+
+        <Route path={`/${itemToMatch.id}`}
           element={<Item
             itemToMatch={itemToMatch}
             setItemToMatch={setItemToMatch}

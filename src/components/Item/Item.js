@@ -7,15 +7,11 @@ function Item({itemToMatch, setItemToMatch, matchedItems, onSearchMatch}) {
     return onSearchMatch(matchedItems, item)
   }
 
-  useEffect(() => {
-    console.log(itemToMatch);
-  }, [itemToMatch])
-
   return (
     <section className='item'>
       <div className='item__dealer-info'>
         <p className='item__prod-name'>{itemToMatch.name}</p>
-        <p className='item__price'>{itemToMatch.price}</p>        
+        <p className='item__price'>{itemToMatch.price}</p>
       </div>
       <form className='item__match-search'>
         <label className='item__proposap-title'>{handleFindMatched(matchedItems, itemToMatch)}</label>
@@ -25,7 +21,7 @@ function Item({itemToMatch, setItemToMatch, matchedItems, onSearchMatch}) {
           <option className='item__proposal-name'>Предложение 3</option>
           <option className='item__proposal-name'>Предложение 4</option>
           <option className='item__proposal-name'>Предложение 5</option>
-        </select>      
+        </select>
         <div className='item__buttons'>
           <button>Да</button>
           <button>Нет</button>

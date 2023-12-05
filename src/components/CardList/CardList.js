@@ -4,7 +4,6 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 import Card from '../Card/Card';
-//import PaginationRounded from '../Pagination/Pagination';
 
 function CardList({items, matchedItems, onItemClick, onSearchMatch, statusFilter, itemToMatch}) {
 

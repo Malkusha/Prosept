@@ -1,9 +1,10 @@
 .card {
   width: 100%;
+  margin-bottom: 60px;
   height: fit-content;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
   gap: 15px;
 }
@@ -28,10 +29,13 @@
 }
 
 .card__date, .card__price, .card__prod-name {
+  width: 160px;
   font-size: 16px;
+  text-align: center;
 }
 
 .card__status {
+  margin: 0 60px;
   width: 20px;
   height: 20px;
 }

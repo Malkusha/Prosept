@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
 import './Item.css';
+import {Link} from 'react-router-dom';
 
 function Item({itemToMatch, setItemToMatch, matchedItems, onSearchMatch}) {
 
@@ -25,7 +25,7 @@ function Item({itemToMatch, setItemToMatch, matchedItems, onSearchMatch}) {
         <div className='item__buttons'>
           <button>Да</button>
           <button>Нет</button>
-          <button>Отложить</button>
+          <Link to='/' className='item__back-link'>Отложить</Link>
         </div>
       </form>
     </section>

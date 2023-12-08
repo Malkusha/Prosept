@@ -11,17 +11,44 @@ function Main({items, matchedItems, onItemClick, onSearchMatch, itemToMatch}) {
 
 
   function onFilterChange(e) {
-    console.log(filteredItems);
-
     return setStatusFilter(e.target.value);
   }
 
-  function checkIsMatched(matchedItems, item) {
-    if (matchedItems.find((matchedItem) => matchedItem.dealerKey === item.id)) {
+  function checkIsMatched(item) {
+    if (item.is_defined) {
       return true;
     } else 
     return false;
   }
+
+  function handleFilterItems(items) {
+    if (statusFilter === 'yes') {
+      setFilteredItems(items.filter((item) => {
+        if (item.is_defined) {
+          return item
+        }
+      }))
+    } else if (statusFilter === 'no') {
+      setFilteredItems(items.filter((item) => {
+        if (!checkIsMatched(item)) {
+          return item
+        }
+      }))
+    } else setFilteredItems(items)
+  }
+
+  useEffect(() => {
+    setFilteredItems(items)
+  }, [items])
+
+  useEffect(() => {
+    handleFilterItems(items, matchedItems);
+  }, [statusFilter])
+
+  useEffect(() => {
+    handleFilterItems(items, matchedItems);
+  }, [])
+
 
   return (
     <section className='main'>

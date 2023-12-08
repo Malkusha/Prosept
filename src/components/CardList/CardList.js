@@ -1,61 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './CardList.css';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 import Card from '../Card/Card';
 
-function CardList({items, matchedItems, onItemClick, onSearchMatch, statusFilter, itemToMatch, checkIsMatched, onFilterChange, filteredItems}) {
+function CardList({items, matchedItems, onItemClick, onSearchMatch, itemToMatch, filteredItems}) {
 
   const [page, setPage] = useState(1);
-  const [pages] = useState(Math.round(items.length/2))
+  const [pages,setPages] = useState(Math.round(items.length/2));
 
-  function handlePageChange(value) {
+  function handlePageChange(e, value) {
     setPage(value);
-    onFilterChange(matchedItems, items);
   }
+
+  useEffect(() => {
+    setPages((Math.round(filteredItems.length/5)))
+  }, [filteredItems]) 
 
     return (
     <Stack spacing={2}>
-      {((statusFilter === 'all') || (statusFilter === '')) && <ul className='cardlist'>
-        {filteredItems.slice(2*(page-1), 2*page).map((item) => (
+      <ul className='cardlist'>
+        {filteredItems.slice(5*(page-1), 5*page).map((item) => (
           <Card 
             item={item}
-            key={item.id}
-            isMatched={checkIsMatched(matchedItems, item)}
+            key={item.product_key}
             matchedItems={matchedItems}
             onItemClick={onItemClick}
             onSearchMatch={onSearchMatch}
             itemToMatch={itemToMatch}
           />
         ))}
-      </ul>}
-      {(statusFilter === 'yes') && <ul className='cardlist'>
-        {filteredItems.slice(2*(page-1), 2*page).map((item) => (
-          checkIsMatched(matchedItems, item) && <Card 
-            item={item}
-            key={item.id}
-            isMatched={checkIsMatched(matchedItems, item)}
-            matchedItems={matchedItems}
-            onItemClick={onItemClick}
-            onSearchMatch={onSearchMatch}
-            itemToMatch={itemToMatch}
-          />
-        ))}
-      </ul>}
-      {(statusFilter === 'no') && <ul className='cardlist'>
-        {filteredItems.slice(2*(page-1), 2*page).map((item) => (
-          !checkIsMatched(matchedItems, item) &&  <Card 
-            item={item}
-            key={item.id}
-            isMatched={checkIsMatched(matchedItems, item)}
-            matchedItems={matchedItems}
-            onItemClick={onItemClick}
-            onSearchMatch={onSearchMatch}
-            itemToMatch={itemToMatch}
-          />
-        ))}
-      </ul>}
+      </ul>
         <Pagination count={pages} shape="rounded" size="small" onChange={handlePageChange} />
     </Stack>
   );

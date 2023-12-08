@@ -1,5 +1,6 @@
 .item {
-  max-width: 100vh;
+  max-height: 100vh;
+  margin: 0 auto;
   padding: 0 20px;
   display: flex;
   flex-direction: row;
@@ -8,11 +9,12 @@
 }
 
 .item__match-search, .item__dealer-info {
-  width: 40vw;
+  width: 40%;
   height: inherit;
   font-size: 24px;
   padding: 20px;
   border: 1px solid #38A43A;
+  border-radius: 15px;
   background-color: #f2f2f2;
 }
 
@@ -37,6 +39,14 @@
   justify-content: space-around;
   align-items: center;
   gap: 10px;
+}
+
+.item__button {
+  background: linear-gradient(90deg, rgba(56,164,58,1) 0%, rgba(0,183,234,1) 100%);
+  padding: 4px 50px;
+  border: 1px solid #38A43A;
+  color: #fff;
+  border-radius: 5px;
 }
 
 .item__back-link {
